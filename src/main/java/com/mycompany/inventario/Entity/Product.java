@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -23,5 +25,7 @@ public class Product implements Serializable {
     private String nombre;
     private String unit;
     private Category categoria;
+    @OneToMany
+    @JoinColumn(name="proveedor_id", referencedColumnName = "id")
     private List<Proveedor> proveedores;
 }

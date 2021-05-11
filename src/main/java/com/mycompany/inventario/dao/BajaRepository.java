@@ -5,6 +5,13 @@
  */
 package com.mycompany.inventario.dao;
 import com.mycompany.inventario.Entity.Baja;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.EntityTransaction;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+
+import org.hibernate.Criteria;
 
 /**
  *
@@ -12,4 +19,9 @@ import com.mycompany.inventario.Entity.Baja;
  */
 public class BajaRepository extends GenericRepository<Long, Baja>{
     
+    public List<Baja> getBajasByDate(Date date){
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Baja> cq = cb.createQuery(Baja.class);
+        
+    }
 }

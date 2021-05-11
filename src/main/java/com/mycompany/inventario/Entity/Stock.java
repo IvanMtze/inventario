@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +33,8 @@ public class Stock implements Serializable {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
+    @OneToMany
+    @JoinColumn(name = "items_id",referencedColumnName = "id")
     private List<Item> items;
     private String descripcion;
 }
