@@ -9,7 +9,6 @@ import com.mycompany.inventario.Entity.User;
 import com.mycompany.inventario.dao.UserRepository;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 /**
