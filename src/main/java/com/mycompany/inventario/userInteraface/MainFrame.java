@@ -36,14 +36,24 @@ public class MainFrame extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inventario");
@@ -95,6 +105,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu1.setText("Inicio");
 
+        jMenuItem6.setText("Configuración");
+        jMenu1.add(jMenuItem6);
+
         jMenuItem1.setText("Salir");
         jMenu1.add(jMenuItem1);
 
@@ -114,13 +127,41 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem5.setText("Consultar proveedores");
         jMenuItem5.setToolTipText("");
         jMenu2.add(jMenuItem5);
+        jMenu2.add(jSeparator1);
+
+        jMenuItem11.setText("Agregar un proveedor");
+        jMenu2.add(jMenuItem11);
+
+        jMenuItem12.setText("Agregar un producto");
+        jMenu2.add(jMenuItem12);
+
+        jMenuItem14.setText("Agregar un pedido");
+        jMenu2.add(jMenuItem14);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Reportes");
+
+        jMenuItem7.setText("Generar reporte diario");
+        jMenu3.add(jMenuItem7);
+
+        jMenuItem8.setText("Historial de reportes");
+        jMenu3.add(jMenuItem8);
+
+        jMenuItem13.setText("Ver estado de almacen");
+        jMenuItem13.setToolTipText("");
+        jMenu3.add(jMenuItem13);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Ayuda");
+
+        jMenuItem9.setText("Ayuda");
+        jMenu4.add(jMenuItem9);
+
+        jMenuItem10.setText("Acerca de");
+        jMenu4.add(jMenuItem10);
+
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -136,10 +177,20 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JProgressBar progressStatusBar;
     private javax.swing.JLabel statusLabel;
