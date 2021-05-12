@@ -12,4 +12,5 @@ import com.mycompany.inventario.Entity.Stock;
  */
 public class StockRepository extends GenericRepository<Long, Stock>{
     
+
 }

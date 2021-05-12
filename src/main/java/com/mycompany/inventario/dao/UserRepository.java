@@ -4,26 +4,28 @@
  * and open the template in the editor.
  */
 package com.mycompany.inventario.dao;
+
 import com.mycompany.inventario.Entity.Baja;
+import com.mycompany.inventario.Entity.User;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-
 /**
  *
  * @author wuser
  */
-public class BajaRepository extends GenericRepository<Long, Baja>{
-    
-    public List<Baja> getBajasByDate(Date date){
+public class UserRepository extends GenericRepository<Long, User>{
+        public User validateUser(String username, String password){
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Baja> criteria = builder.createQuery(Baja.class);
-        Root<Baja> root = criteria.from(Baja.class);
+        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+        Root<User> root = criteria.from(User.class);
         criteria.select(root);
-        criteria.where(builder.equal(root.get("date"), date));
-        return entityManager.createQuery( criteria ).getResultList();
+        criteria.where(builder.equal(root.get("username"), username),
+                builder.equal(root.get("password"), password));
+        List<User> result =entityManager.createQuery( criteria ).getResultList();
+        return result.isEmpty()?null:result.get(0);
     }
 }

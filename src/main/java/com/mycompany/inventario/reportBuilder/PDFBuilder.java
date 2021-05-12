@@ -35,6 +35,6 @@ public class PDFBuilder {
     }
     public void setHeader(){
         SimpleDateFormat dt1 = new SimpleDateFormat("yyyyy-mm-dd");
-        this.pdfDoc.addNewPage();        
+        this.pdfDoc.addNewPage();
     }
 }
