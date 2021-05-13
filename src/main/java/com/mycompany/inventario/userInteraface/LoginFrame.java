@@ -7,6 +7,8 @@ package com.mycompany.inventario.userInteraface;
 
 import com.mycompany.inventario.Entity.User;
 import com.mycompany.inventario.dao.UserRepository;
+import java.awt.BorderLayout;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
@@ -17,14 +19,12 @@ import javax.swing.JProgressBar;
  */
 public class LoginFrame extends javax.swing.JFrame {
 
-    private JProgressBar progresBar = new JProgressBar(0, 100);
-
     public LoginFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     private void login() {
-        ingresarBtn.setEnabled(false);
         UserRepository userRepository = new UserRepository();
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
@@ -38,6 +38,7 @@ public class LoginFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña no valido");
             ingresarBtn.setEnabled(true);
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -76,8 +77,17 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         passwordField.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        passwordField.setText("Password...");
         passwordField.setToolTipText("Password");
-        passwordField.setRequestFocusEnabled(false);
+        passwordField.setEchoChar('\u0000');
+        passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordFieldFocusLost(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/profile.png"))); // NOI18N
         jLabel2.setFocusable(false);
@@ -115,7 +125,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(ingresarBtn)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,17 +136,30 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ingresarBtnActionPerformed
 
     private void focusGainedHandler(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_focusGainedHandler
- if(usernameField.getText().equals("Username")) {
-        usernameField.setText("");
-    }
+        if (usernameField.getText().equals("Username...")) {
+            usernameField.setText("");
+        }
     }//GEN-LAST:event_focusGainedHandler
 
     private void usernameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFieldFocusLost
-        if(usernameField.getText().equals("")) {
-        usernameField.setText("Username");
+        if (usernameField.getText().equals("")) {
+            usernameField.setText("Username...");
         }
     }//GEN-LAST:event_usernameFieldFocusLost
 
+    private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
+        if (new String(passwordField.getPassword()).equals("Password...")) {
+            passwordField.setEchoChar('*');
+            passwordField.setText("");
+        }
+    }//GEN-LAST:event_passwordFieldFocusGained
+
+    private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
+        if (new String(passwordField.getPassword()).equals("")) {
+            passwordField.setEchoChar('\u0000');
+            passwordField.setText("Password...");
+        }
+    }//GEN-LAST:event_passwordFieldFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ingresarBtn;

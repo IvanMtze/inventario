@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -52,10 +53,8 @@ public abstract class GenericRepository<ID, ClassName> implements Repository<ID,
         return t;
     }
 
-    public Iterable<ClassName> findAll() {
-
+    public List<ClassName> findAll() {
         Class<ClassName> type = getEntityClass();
-
         CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<ClassName> criteriaQuery = cb.createQuery(type);
         Root<ClassName> root = criteriaQuery.from(type);

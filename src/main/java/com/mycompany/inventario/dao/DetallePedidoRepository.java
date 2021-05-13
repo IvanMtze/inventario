@@ -5,13 +5,13 @@
  */
 package com.mycompany.inventario.dao;
 
-import com.mycompany.inventario.Entity.Pedido;
+import com.mycompany.inventario.Entity.DetallePedido;
 
 /**
  *
  * @author wuser
  */
-public class DetallePedidoRepository extends GenericRepository<Long, Pedido>{
+public class DetallePedidoRepository extends GenericRepository<Long, DetallePedido>{
     
 }
 

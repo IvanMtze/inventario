@@ -37,6 +37,7 @@ public class DetallePedido implements Serializable {
     private Float descuento;
     private Float total;
     private Product producto;
+    private Proveedor proveedor;
     private Pedido pedido;
     private Pago pago;
     

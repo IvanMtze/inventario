@@ -36,5 +36,8 @@ public class Proveedor implements Serializable {
     private String email;
     private String direccion;
     private String otrosDetalles;
-    
+    @Override
+    public String toString(){
+        return this.nombre+" - "+this.direccion;
+    }    
 }

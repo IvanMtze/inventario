@@ -18,7 +18,7 @@ import javax.persistence.criteria.Root;
  * @author wuser
  */
 public class UserRepository extends GenericRepository<Long, User>{
-        public User validateUser(String username, String password){
+    public User validateUser(String username, String password){
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> criteria = builder.createQuery(User.class);
         Root<User> root = criteria.from(User.class);
