@@ -57,39 +57,42 @@ public class ConsultarExistenciasFrame extends javax.swing.JInternalFrame {
         });
     }
 
-    private void disminuirSelectedItem(){
+    private void disminuirSelectedItem() {
         BajaRepository bajasRepository = new BajaRepository();
         ItemRepository itemRepository = new ItemRepository();
         Double cantidad = null;
-        do{
-        String numTemp=JOptionPane.showInputDialog(this,"Ingrese la cantidad a disminuir en numeros");
-        try{
-            cantidad = Double.parseDouble(numTemp);
-            if(cantidad < 0.0)
-                throw new Exception();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this,"Numero erroneo, por favor intente nuevamente en formato 00.00");
-            cantidad = null;
-        }
-        }while(cantidad==null);
-        String descripcion = JOptionPane.showInputDialog(this,"Ingrese el motivo de baja");
-        
+        do {
+            String numTemp = JOptionPane.showInputDialog(this, "Ingrese la cantidad a disminuir en numeros");
+            if(numTemp==null)
+                return;
+            try {
+                cantidad = Double.parseDouble(numTemp);
+                if (cantidad < 0.0) {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Numero erroneo, por favor intente nuevamente en formato 00.00");
+                cantidad = null;
+            }
+        } while (cantidad == null);
+        String descripcion = JOptionPane.showInputDialog(this, "Ingrese el motivo de baja");
+
         Baja baja = new Baja();
         baja.setDate(new Date());
         Long id = (Long) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
-        
-        
+
         baja.setProducto(itemRepository.find(id).getProducto());
         baja.setCantidad(cantidad);
         baja.setDescripcion(descripcion);
         bajasRepository.create(baja);
-        
+
         //Disminuye en el inventario
         Item dismiItem = itemRepository.find(id);
-        dismiItem.setExistencias(dismiItem.getExistencias()-cantidad);
+        dismiItem.setExistencias(dismiItem.getExistencias() - cantidad);
         itemRepository.update(dismiItem);
         loadData();
     }
+
     private void deleteSelectedItem() {
         StockRepository stock = new StockRepository();
         ItemRepository itemRepository = new ItemRepository();
@@ -106,7 +109,7 @@ public class ConsultarExistenciasFrame extends javax.swing.JInternalFrame {
             model.removeRow(i);
         }
         for (Stock stock : existencias) {
-            for (Item item : stock.getItems()){
+            for (Item item : stock.getItems()) {
                 for (int i = 0; i < item.getProducto().getProveedores().size(); i++) {
                     Vector row = new Vector();
                     row.add(item.getId());
