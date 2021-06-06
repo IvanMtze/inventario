@@ -5,15 +5,21 @@ import com.mycompany.inventario.Entity.Proveedor;
 import com.mycompany.inventario.Entity.Stock;
 import com.mycompany.inventario.dao.ProveedorRepository;
 import com.mycompany.inventario.dao.StockRepository;
+import com.mycompany.inventario.userInteraface.edit.EditarProveedorFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,14 +27,13 @@ import javax.swing.table.DefaultTableModel;
  * @author wuser
  */
 public class ConsultarProveedoresFrame extends javax.swing.JInternalFrame {
-    
+
     private ProveedorRepository repository = new ProveedorRepository();
-    
+
     public ConsultarProveedoresFrame() {
         initComponents();
-                loadData();
-
-                jTable1.addMouseListener(new MouseAdapter() {
+        loadData();
+        jTable1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e)) {
@@ -40,11 +45,49 @@ public class ConsultarProveedoresFrame extends javax.swing.JInternalFrame {
                             deleteSelectedItem();
                         }
                     });
+                    JMenuItem menuItemEditar = new JMenuItem("Editar");
+                    menuItemEditar.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            editSelectedItem();
+                        }
+                    });
+                    menu.add(menuItemEditar);
                     menu.add(menuItemEliminar);
                     menu.show(e.getComponent(), e.getX(), e.getY());
                 }
             }
         });
+    }
+
+    private void editSelectedItem() {
+        Long id = (Long) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
+        EditarProveedorFrame frame = new EditarProveedorFrame(repository.find(id),JOptionPane.getFrameForComponent(this), "Editar un proveedor", false);
+                frame.setVisible(true);
+        changeStatus(false);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                changeStatus(true);
+                changeFocus();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                changeStatus(true);
+                changeFocus();
+            }
+        });
+    }
+
+    private void openThisWIndow(Boolean state) {
+        this.setVisible(state);
+        if (state) {
+            this.toFront();
+        } else {
+            this.toBack();
+        }
     }
 
     private void deleteSelectedItem() {
@@ -53,12 +96,21 @@ public class ConsultarProveedoresFrame extends javax.swing.JInternalFrame {
         loadData();
     }
 
-    
+    private void changeStatus(Boolean state) {
+        this.setClosable(state);
+    }
+
+    private void changeFocus() {
+        requestFocus();
+                loadData();
+
+    }
+
     private void loadData() {
         List<Proveedor> proveedores = this.repository.findAll();
-            DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
-        
-                for (int i = 0; i < model.getRowCount();) {
+        DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+
+        for (int i = 0; i < model.getRowCount();) {
             model.removeRow(i);
         }
         for (Proveedor proveedor : proveedores) {
@@ -72,7 +124,7 @@ public class ConsultarProveedoresFrame extends javax.swing.JInternalFrame {
             model.addRow(row);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

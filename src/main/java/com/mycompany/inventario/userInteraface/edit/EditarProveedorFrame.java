@@ -8,19 +8,28 @@ package com.mycompany.inventario.userInteraface.edit;
 import com.mycompany.inventario.userInteraface.create.*;
 import com.mycompany.inventario.Entity.Proveedor;
 import com.mycompany.inventario.dao.ProveedorRepository;
+import java.awt.Frame;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Oswaldo
  */
-public class EditarProveedorFrame extends javax.swing.JInternalFrame {
+public class EditarProveedorFrame extends javax.swing.JDialog {
+
+    private Proveedor proveedor;
 
     /**
      * Creates new form ProveedoresInternalFrame
      */
-    public EditarProveedorFrame() {
+    public EditarProveedorFrame(Proveedor proveedor,Frame owner, String title, Boolean modal) {
+        super(owner, title, modal);
         initComponents();
+        direcciontxt.setText(proveedor.getDireccion());
+        emailProveedorTxt.setText(proveedor.getEmail());
+        nombretxt.setText(proveedor.getNombre());
+        telefonotxt.setText(proveedor.getTelefono());
+        detallestxt.setText(proveedor.getOtrosDetalles());
     }
 
     /**
@@ -62,9 +71,7 @@ public class EditarProveedorFrame extends javax.swing.JInternalFrame {
         aceptarBtn = new javax.swing.JButton();
         cancelarBtn = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        setClosable(true);
-        setTitle("Agregar un proveedor");
+        setTitle("Editar un proveedor");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         jPanel2.setLayout(new java.awt.BorderLayout());
@@ -370,18 +377,18 @@ public class EditarProveedorFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_nombretxtActionPerformed
 
     private void aceptarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBtnActionPerformed
-        Proveedor proveedor = new Proveedor();
         proveedor.setDireccion(direcciontxt.getText());
         proveedor.setEmail(emailProveedorTxt.getText());
         proveedor.setNombre(nombretxt.getText());
         proveedor.setTelefono(telefonotxt.getText());
         proveedor.setOtrosDetalles(detallestxt.getText());
         ProveedorRepository repository = new ProveedorRepository();
-        int result = JOptionPane.showConfirmDialog(this, "¿Esta seguro?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
-        if(result==0){
-                    Object o = repository.create(proveedor);
-                    if(o!=null)
-                        JOptionPane.showMessageDialog(this,"Guardado", "Información",JOptionPane.INFORMATION_MESSAGE);
+        int result = JOptionPane.showConfirmDialog(this, "¿Esta seguro?", "Confirmación", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (result == 0) {
+            Object o = repository.update(proveedor);
+            if (o != null) {
+                JOptionPane.showMessageDialog(this, "Guardado", "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_aceptarBtnActionPerformed
 

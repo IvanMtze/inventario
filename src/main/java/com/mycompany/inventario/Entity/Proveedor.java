@@ -48,6 +48,5 @@ public class Proveedor implements Serializable {
     
     
     @ManyToMany( mappedBy = "proveedores")
-
     private List<Product> productos;
 }

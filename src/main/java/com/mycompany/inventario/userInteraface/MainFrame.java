@@ -36,6 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void setUser(User user) {
         this.user = user;
         this.userLabel.setText(user == null ? "No username" : user.getUsername());
+            configuracionMenuItem.setEnabled(user.getIsAdmin());
     }
 
     private void loadInternalFrame(JInternalFrame internalFrame){
@@ -60,7 +61,7 @@ public class MainFrame extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        configuracionMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -74,7 +75,6 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -120,15 +120,20 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu1.setText("Inicio");
 
-        jMenuItem6.setText("Configuración");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        configuracionMenuItem.setText("Configuración");
+        configuracionMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                configuracionMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem6);
+        jMenu1.add(configuracionMenuItem);
 
         jMenuItem1.setText("Salir");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -210,9 +215,6 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu2.add(jMenuItem15);
         jMenu2.add(jSeparator2);
 
-        jMenuItem16.setText("Registrar un pedido");
-        jMenu2.add(jMenuItem16);
-
         jMenuItem17.setText("Registrar una entrega");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,16 +274,21 @@ public class MainFrame extends javax.swing.JFrame {
         loadInternalFrame(new ConsultarProductosFrame());
     }//GEN-LAST:event_consultarProductoBtnActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void configuracionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracionMenuItemActionPerformed
         loadInternalFrame(new SettingsFrame());
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_configuracionMenuItemActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         loadInternalFrame(new AgregarRecepcion());
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem configuracionMenuItem;
     private javax.swing.JMenuItem consultarProductoBtn;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -293,13 +300,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;

@@ -14,6 +14,7 @@ import com.mycompany.inventario.dao.ItemRepository;
 import com.mycompany.inventario.dao.ProductRepository;
 import com.mycompany.inventario.dao.ProveedorRepository;
 import com.mycompany.inventario.dao.StockRepository;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -29,34 +30,41 @@ import javax.swing.SwingUtilities;
  *
  * @author Oswaldo
  */
-public class EditarProductoFrame extends javax.swing.JInternalFrame {
-
+public class EditarProductoFrame extends javax.swing.JDialog {
 
     Product product;
     private List<Proveedor> proveedores = new ArrayList<Proveedor>();
-    public EditarProductoFrame(Product producto) {
+
+    public EditarProductoFrame(Product producto,Frame owner, String title, Boolean modal) {
+        super(owner, title, modal);
         initComponents();
         loadData();
         this.product = producto;
         nombretxt.setText(producto.getNombre());
-        
+        unidadList.setSelectedItem(producto.getUnit());
+        for (Proveedor p : producto.getProveedores()) {
+            proveedores.add(p);
+            listProveedoresAgregados.setListData(proveedores.toArray(new Proveedor[0]));
+        }
     }
 
-    
-    private void loadData(){
+    private void loadData() {
         CategoryRepository categoriasRepositorios = new CategoryRepository();
         ProveedorRepository proveedoresRepositorios = new ProveedorRepository();
-        
+
         DefaultComboBoxModel proveedoresBoxModel = (DefaultComboBoxModel) proveedoresBox.getModel();
-        
+
         DefaultComboBoxModel categoriasBoxModel = (DefaultComboBoxModel) categoriaBox.getModel();
-        
-        for (Proveedor proveedor: proveedoresRepositorios.findAll())
+
+        for (Proveedor proveedor : proveedoresRepositorios.findAll()) {
             proveedoresBoxModel.addElement(proveedor);
-        
-        for (Category category: categoriasRepositorios.findAll())
+        }
+
+        for (Category category : categoriasRepositorios.findAll()) {
             categoriasBoxModel.addElement(category.getNombre());
+        }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -91,9 +99,8 @@ public class EditarProductoFrame extends javax.swing.JInternalFrame {
         aceptarBtn = new javax.swing.JButton();
         cancelarBtn = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        setClosable(true);
-        setTitle("Agregar un producto");
+
+        setTitle("Editar  un producto");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         jPanel2.setLayout(new java.awt.BorderLayout());
@@ -390,55 +397,52 @@ public class EditarProductoFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nombretxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombretxtActionPerformed
-        
+
     }//GEN-LAST:event_nombretxtActionPerformed
 
     private void aceptarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBtnActionPerformed
-        int result = JOptionPane.showConfirmDialog(this, "¿Esta seguro?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(this, "¿Esta seguro?", "Confirmación", JOptionPane.YES_NO_CANCEL_OPTION);
         CategoryRepository categoryRepository = new CategoryRepository();
         Category category = categoryRepository.findByName(categoriaBox.getSelectedItem().toString());
-        
-        Product product = new Product();
+
         product.setCategoria(category);
         product.setNombre(nombretxt.getText());
         product.setUnit(unidadList.getSelectedItem().toString());
         product.setProveedores(proveedores);
-        
+
         ProductRepository productRepository = new ProductRepository();
-        if(result==0){
-                    Object o = productRepository.create(product);
-                    if(o!=null)
-                        JOptionPane.showMessageDialog(this,"Guardado", "Información",JOptionPane.INFORMATION_MESSAGE);
-                    else{
-                        JOptionPane.showMessageDialog(this,"Error al guardar", "Información",JOptionPane.WARNING_MESSAGE);
-                    }
+        if (result == 0) {
+            Object o = productRepository.update(product);
+            if (o != null) {
+                JOptionPane.showMessageDialog(this, "Guardado", "Información", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar", "Información", JOptionPane.WARNING_MESSAGE);
+            }
         }
-        
-        
+
         ItemRepository items = new ItemRepository();
         StockRepository stock = new StockRepository();
-        
     }//GEN-LAST:event_aceptarBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Proveedor proveedorNombre =  (Proveedor) proveedoresBox.getSelectedItem();
+        Proveedor proveedorNombre = (Proveedor) proveedoresBox.getSelectedItem();
         proveedores.add(proveedorNombre);
-        
+
         listProveedoresAgregados.setListData(proveedores.toArray(new Proveedor[0]));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void listProveedoresAgregadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProveedoresAgregadosMouseClicked
-         if (SwingUtilities.isRightMouseButton(evt)) {
-             JPopupMenu menu = new JPopupMenu();
-             JMenuItem item = new JMenuItem("Eliminar");
-                item.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        proveedores.remove(listProveedoresAgregados.getSelectedValue());
-                        listProveedoresAgregados.setListData(proveedores.toArray(new Proveedor[0]));
-                    }
-                });
-                menu.add(item);
-                menu.show(listProveedoresAgregados, evt.getPoint().x, evt.getPoint().y);
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            JPopupMenu menu = new JPopupMenu();
+            JMenuItem item = new JMenuItem("Eliminar");
+            item.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    proveedores.remove(listProveedoresAgregados.getSelectedValue());
+                    listProveedoresAgregados.setListData(proveedores.toArray(new Proveedor[0]));
+                }
+            });
+            menu.add(item);
+            menu.show(listProveedoresAgregados, evt.getPoint().x, evt.getPoint().y);
         }
     }//GEN-LAST:event_listProveedoresAgregadosMouseClicked
 

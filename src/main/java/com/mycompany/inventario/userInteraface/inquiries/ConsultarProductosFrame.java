@@ -3,15 +3,21 @@ package com.mycompany.inventario.userInteraface.inquiries;
 import com.mycompany.inventario.Entity.Product;
 import com.mycompany.inventario.Entity.Proveedor;
 import com.mycompany.inventario.dao.ProductRepository;
+import com.mycompany.inventario.userInteraface.edit.EditarProductoFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,6 +43,14 @@ public class ConsultarProductosFrame extends javax.swing.JInternalFrame {
                             deleteSelectedItem();
                         }
                     });
+                    JMenuItem menuItemEditar = new JMenuItem("Editar");
+                    menuItemEditar.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            editSelectedItem();
+                        }
+                    });
+                    menu.add(menuItemEditar);
                     menu.add(menuItemEliminar);
                     menu.show(e.getComponent(), e.getX(), e.getY());
                 }
@@ -44,13 +58,52 @@ public class ConsultarProductosFrame extends javax.swing.JInternalFrame {
         });
     }
 
+    private void editSelectedItem() {
+        Long id = (Long) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
+        EditarProductoFrame frame = new EditarProductoFrame(repositorio.find(id), JOptionPane.getFrameForComponent(this), "Editar un producto", false
+        );
+        frame.setVisible(true);
+        changeStatus(false);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                changeStatus(true);
+                changeFocus();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                changeStatus(true);
+                changeFocus();
+            }
+        });
+    }
+
+    private void changeStatus(Boolean state) {
+        this.setClosable(state);
+    }
+
+    private void changeFocus() {
+        requestFocus();
+        loadData();
+
+    }
+
+    private void openThisWIndow(Boolean state) {
+        this.setVisible(state);
+        if (state) {
+            this.toFront();
+        } else {
+            this.toBack();
+        }
+    }
+
     private void deleteSelectedItem() {
         Long id = (Long) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
         repositorio.deleteById(id);
         loadData();
     }
-    
-    
+
     private void loadData() {
         DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
         for (int i = 0; i < model.getRowCount();) {
@@ -66,16 +119,16 @@ public class ConsultarProductosFrame extends javax.swing.JInternalFrame {
                 row.add("No hay proveedores disponibles");
                 row.add(producto.getUnit());
                 model.addRow(row);
-            }else{
-            for (int i = 0; i < producto.getProveedores().size(); i++) {
-                Vector row = new Vector();
-                row.add(producto.getId());
-                row.add(producto.getNombre());
-                row.add(producto.getCategoria().getNombre());
-                row.add(producto.getProveedores().get(i).getNombre());
-                row.add(producto.getUnit());
-                model.addRow(row);
-            }
+            } else {
+                for (int i = 0; i < producto.getProveedores().size(); i++) {
+                    Vector row = new Vector();
+                    row.add(producto.getId());
+                    row.add(producto.getNombre());
+                    row.add(producto.getCategoria().getNombre());
+                    row.add(producto.getProveedores().get(i).getNombre());
+                    row.add(producto.getUnit());
+                    model.addRow(row);
+                }
             }
         }
     }

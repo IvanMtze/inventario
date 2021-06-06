@@ -10,23 +10,25 @@ import com.mycompany.inventario.Entity.Category;
 import com.mycompany.inventario.Entity.Proveedor;
 import com.mycompany.inventario.dao.CategoryRepository;
 import com.mycompany.inventario.dao.ProveedorRepository;
+import java.awt.Frame;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Oswaldo
  */
-public class EditarCategoriaFrame extends javax.swing.JInternalFrame {
+public class EditarCategoriaFrame extends javax.swing.JDialog {
 
     Category category;
-    public EditarCategoriaFrame(Category categoria) {
+    public EditarCategoriaFrame(Category categoria,Frame owner, String title, Boolean modal) {
+        super(owner, title, modal);
         initComponents();
         category = categoria;
         nombretxt.setText(categoria.getNombre());
         descripciontxt.setText(categoria.getDescripcion());
     }
 
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -46,9 +48,8 @@ public class EditarCategoriaFrame extends javax.swing.JInternalFrame {
         aceptarBtn = new javax.swing.JButton();
         cancelarBtn = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        setClosable(true);
-        setTitle("Agregar un proveedor");
+
+        setTitle("Editar una categoria");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         jPanel2.setLayout(new java.awt.BorderLayout());
