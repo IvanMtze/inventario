@@ -225,6 +225,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu4.setText("Ayuda");
+
         jMenuItem9.setText("Ayuda");
         jMenu4.add(jMenuItem9);
 

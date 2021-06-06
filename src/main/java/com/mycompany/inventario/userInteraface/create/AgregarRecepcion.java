@@ -96,7 +96,7 @@ public class AgregarRecepcion extends javax.swing.JInternalFrame {
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setClosable(true);
-        setTitle("Agregar un proveedor");
+        setTitle("Agregar una entrega");
 
         jPanel1.setMinimumSize(new java.awt.Dimension(100, 20));
         jPanel1.setLayout(new java.awt.BorderLayout());
