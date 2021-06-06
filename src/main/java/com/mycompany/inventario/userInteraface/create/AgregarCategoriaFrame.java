@@ -43,7 +43,7 @@ public class AgregarCategoriaFrame extends javax.swing.JInternalFrame {
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setClosable(true);
-        setTitle("Agregar un proveedor");
+        setTitle("Agregar categoria");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         jPanel2.setLayout(new java.awt.BorderLayout());
