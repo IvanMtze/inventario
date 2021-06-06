@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.inventario.userInteraface.create;
+package com.mycompany.inventario.userInteraface.edit;
 
+import com.mycompany.inventario.userInteraface.create.*;
 import com.mycompany.inventario.Entity.Category;
 import com.mycompany.inventario.Entity.Product;
 import com.mycompany.inventario.Entity.Proveedor;
@@ -28,13 +29,17 @@ import javax.swing.SwingUtilities;
  *
  * @author Oswaldo
  */
-public class AgregarProductoFrame extends javax.swing.JInternalFrame {
+public class EditarProductoFrame extends javax.swing.JInternalFrame {
 
 
+    Product product;
     private List<Proveedor> proveedores = new ArrayList<Proveedor>();
-    public AgregarProductoFrame() {
+    public EditarProductoFrame(Product producto) {
         initComponents();
         loadData();
+        this.product = producto;
+        nombretxt.setText(producto.getNombre());
+        
     }
 
     

@@ -7,8 +7,12 @@ package com.mycompany.inventario.Entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,15 +34,19 @@ public class DetallePedido implements Serializable {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
-    
-    private Float precioUnidad;
-    private Integer size;
-    private Float cantidad;
-    private Float descuento;
-    private Float total;
+
     private Product producto;
     private Proveedor proveedor;
-    private Pedido pedido;
-    private Pago pago;
+    private Double precioUnidad;
+    private String size;
+    private Double cantidad;
+    private Double descuento;
+    private Double total;
+
     
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Pedido pedido;
+    
+    private Pago pago;
+
 }

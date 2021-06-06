@@ -25,7 +25,6 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @Table(name = "usuarios")
 public class User implements Serializable {
-
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
@@ -37,4 +36,5 @@ public class User implements Serializable {
     private String email;
     private String username;
     private String password;
+    private Boolean isAdmin=false;
 }

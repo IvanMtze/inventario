@@ -5,9 +5,11 @@ import com.mycompany.inventario.userInteraface.inquiries.ConsultarPedidosFrame;
 import com.mycompany.inventario.userInteraface.inquiries.ConsultarFaltantesFrame;
 import com.mycompany.inventario.Entity.User;
 import com.mycompany.inventario.userInteraface.create.AgregarCategoriaFrame;
-import com.mycompany.inventario.userInteraface.create.AgregarPedidoFrame;
+import com.mycompany.inventario.userInteraface.create.AgregarPedidoDetalleFrame;
+import com.mycompany.inventario.userInteraface.create.AgregarPedidoMainFrame;
 import com.mycompany.inventario.userInteraface.create.AgregarProductoFrame;
 import com.mycompany.inventario.userInteraface.create.AgregarProveedorFrame;
+import com.mycompany.inventario.userInteraface.create.AgregarRecepcion;
 import com.mycompany.inventario.userInteraface.inquiries.ConsultarProductosFrame;
 import com.mycompany.inventario.userInteraface.inquiries.ConsultarProveedoresFrame;
 import javax.swing.JInternalFrame;
@@ -45,7 +47,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.progressStatusBar.setValue(66);
         this.mainPanel.add(internalFrame);
         this.statusLabel.setText(LISTO);
-        this.progressStatusBar.setValue(100); 
+        this.progressStatusBar.setValue(100);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -71,10 +73,9 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -120,6 +121,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.setText("Inicio");
 
         jMenuItem6.setText("Configuración");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem6);
 
         jMenuItem1.setText("Salir");
@@ -202,24 +208,20 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem15);
+        jMenu2.add(jSeparator2);
+
+        jMenuItem16.setText("Registrar un pedido");
+        jMenu2.add(jMenuItem16);
+
+        jMenuItem17.setText("Registrar una entrega");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem17);
 
         jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Reportes");
-
-        jMenuItem7.setText("Generar reporte diario");
-        jMenu3.add(jMenuItem7);
-
-        jMenuItem8.setText("Historial de reportes");
-        jMenu3.add(jMenuItem8);
-
-        jMenuItem13.setText("Ver estado de almacen");
-        jMenuItem13.setToolTipText("");
-        jMenu3.add(jMenuItem13);
-
-        jMenuBar1.add(jMenu3);
-
-        jMenu4.setText("Ayuda");
 
         jMenuItem9.setText("Ayuda");
         jMenu4.add(jMenuItem9);
@@ -251,7 +253,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        loadInternalFrame(new AgregarPedidoFrame());
+        loadInternalFrame(new AgregarPedidoMainFrame());
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -270,30 +272,37 @@ public class MainFrame extends javax.swing.JFrame {
         loadInternalFrame(new ConsultarProductosFrame());
     }//GEN-LAST:event_consultarProductoBtnActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        loadInternalFrame(new SettingsFrame());
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        loadInternalFrame(new AgregarRecepcion());
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem consultarProductoBtn;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JProgressBar progressStatusBar;
     private javax.swing.JLabel statusLabel;

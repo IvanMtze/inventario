@@ -9,9 +9,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,4 +39,20 @@ public class Pedido implements Serializable {
     private Long id;
     private String comentarios;
     private Date fechaDeRealizacion;
+    private Boolean isDone;
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "detallesPedido_pedido",
+            joinColumns = {@JoinColumn(name = "pedido_id")},
+            inverseJoinColumns = {@JoinColumn(name = "detalles_pedido_id")}
+    )
+    private List<DetallePedido> detallesPedido;
+    
+    @Override
+    public String toString(){
+        return "Pedido realizado: "+fechaDeRealizacion;
+    }
 }

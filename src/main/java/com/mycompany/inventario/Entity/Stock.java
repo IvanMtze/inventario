@@ -28,7 +28,6 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @Table(name = "stocks")
 public class Stock implements Serializable {
-
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")

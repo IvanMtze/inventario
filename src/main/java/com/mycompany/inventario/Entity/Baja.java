@@ -33,4 +33,6 @@ public class Baja implements Serializable {
     private Long id;
     private String descripcion;
     private Date date;
+    private Double cantidad;
+    private Product producto;
 }

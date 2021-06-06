@@ -25,11 +25,10 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @Table(name = "items")
 public class Item implements Serializable {
-
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
     private Product producto;
-    private Integer existencias;
+    private Double existencias;
 }

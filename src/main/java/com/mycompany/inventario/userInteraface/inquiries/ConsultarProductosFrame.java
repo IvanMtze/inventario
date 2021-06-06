@@ -1,9 +1,17 @@
 package com.mycompany.inventario.userInteraface.inquiries;
 
 import com.mycompany.inventario.Entity.Product;
+import com.mycompany.inventario.Entity.Proveedor;
 import com.mycompany.inventario.dao.ProductRepository;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,23 +25,57 @@ public class ConsultarProductosFrame extends javax.swing.JInternalFrame {
     public ConsultarProductosFrame() {
         initComponents();
         loadData();
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    final JPopupMenu menu = new JPopupMenu("Menu");
+                    JMenuItem menuItemEliminar = new JMenuItem("Eliminar");
+                    menuItemEliminar.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            deleteSelectedItem();
+                        }
+                    });
+                    menu.add(menuItemEliminar);
+                    menu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
     }
 
+    private void deleteSelectedItem() {
+        Long id = (Long) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
+        repositorio.deleteById(id);
+        loadData();
+    }
+    
+    
     private void loadData() {
         DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
-
+        for (int i = 0; i < model.getRowCount();) {
+            model.removeRow(i);
+        }
         List<Product> productos = this.repositorio.findAll();
         for (Product producto : productos) {
-            System.out.println(producto);
-            System.out.println(producto.getProveedores().size());
-            for (int i = 0; i < producto.getProveedores().size(); i++){
-                System.out.println(producto.getProveedores().size());
+            if (producto.getProveedores().size() <= 0) {
                 Vector row = new Vector();
+                row.add(producto.getId());
+                row.add(producto.getNombre());
+                row.add(producto.getCategoria().getNombre());
+                row.add("No hay proveedores disponibles");
+                row.add(producto.getUnit());
+                model.addRow(row);
+            }else{
+            for (int i = 0; i < producto.getProveedores().size(); i++) {
+                Vector row = new Vector();
+                row.add(producto.getId());
                 row.add(producto.getNombre());
                 row.add(producto.getCategoria().getNombre());
                 row.add(producto.getProveedores().get(i).getNombre());
                 row.add(producto.getUnit());
                 model.addRow(row);
+            }
             }
         }
     }
@@ -53,8 +95,8 @@ public class ConsultarProductosFrame extends javax.swing.JInternalFrame {
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setClosable(true);
-        setMaximizable(true);
-        setTitle("Consultar Productos");
+        setResizable(true);
+        setTitle("Consultar Productos Registrados");
         setVerifyInputWhenFocusTarget(false);
         setVisible(false);
 
@@ -67,7 +109,7 @@ public class ConsultarProductosFrame extends javax.swing.JInternalFrame {
         jLabel1.setText("Buscar");
         jPanel3.add(jLabel1);
 
-        jTextField1.setText("Mis productos...");
+        jTextField1.setText("Mis existencias...");
         jPanel3.add(jTextField1);
 
         jButton1.setText("Buscar");
@@ -84,10 +126,24 @@ public class ConsultarProductosFrame extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nombre", "Categoria", "Proveedor", "Cantidad"
+                "Id", "Nombre", "Categoria", "Proveedor", "Cantidad", "Existencias"
             }
-        ));
-        jTable1.setMinimumSize(new java.awt.Dimension(75, 0));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
